@@ -6,16 +6,17 @@ namespace FinanceTracker
     // Form1 displays all the data the user inputted
     public partial class Form1 : Form
     {
-        public static Form1 instance;
+        public static Form1 Instance { get; set; }
         bool isEnabled = false;
+        public int sessionId = 1;
         public Form1()
         {
             // Initialise Form1 and set Form1 object instance to this
             InitializeComponent();
-            instance = this;
+            Instance = this;
 
             // Declare SQL queries and database name
-            string createSession = $"CREATE TABLE session (\r\nsessionId INT PRIMARY KEY AUTO_INCREMENT,\r\nbudget INT NOT NULL,\r\nsessionDate DATE\r\n);";
+            string createSession = $"CREATE TABLE session (\r\nsessionId INT PRIMARY KEY,\r\nbudget INT NOT NULL,\r\nsessionDate DATE\r\n);";
             string createExpenses = $"CREATE TABLE expenses (\r\nexpensesId INT PRIMARY KEY AUTO_INCREMENT,\r\nexpenseName varchar(64),\r\nexpenseCost INT NOT NULL,\r\nsessionId INT,\r\nCONSTRAINT fk_session\r\nFOREIGN KEY (sessionId) REFERENCES session (sessionId));";
             string DBname = "FinanceTracker";
 
@@ -141,25 +142,19 @@ namespace FinanceTracker
             }
         }
 
-        public static void SaveExpenses(string databaseName)
+        public static void SaveExpenses(string databaseName, string query)
         {
             // Connect to database and establish database connection object
-            string connStr = $"Server={server};Port={port};Uid={userID};Pwd={password};";
+            string connStr = $"Server={server};Port={port};Database={databaseName};Uid={userID};Pwd={password};";
             MySqlConnection conn = new(connStr);
 
             try
             {
                 conn.Open();
 
-                // Drop database if exists
-                string dropCommand = $"DROP DATABASE IF EXISTS `{databaseName}`;";
-                MySqlCommand drop = new(dropCommand, conn);
-                drop.ExecuteNonQuery();
-
                 // Create Database
-                string createCommand = $"CREATE DATABASE `{databaseName}`";
-                MySqlCommand create = new(createCommand, conn);
-                create.ExecuteNonQuery();
+                MySqlCommand command = new(query, conn);
+                command.ExecuteNonQuery();
 
             }
             catch (Exception ex)
@@ -174,11 +169,6 @@ namespace FinanceTracker
                     conn.Close();
                 }
             }
-        }
-
-        public void SaveToDatabase(string databaseName)
-        {
-
         }
 
     }

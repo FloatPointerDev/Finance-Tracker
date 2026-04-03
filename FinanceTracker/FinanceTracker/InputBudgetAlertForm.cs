@@ -28,8 +28,8 @@ namespace FinanceTracker
         private void BudgetInputButton_Click(object sender, EventArgs e)
         {
             // Send user input to methods in Form1
-            Form1.instance.InputBudget(newBudget);
-            Form1.instance.InputRemainingBudget(newBudget);
+            Form1.Instance.InputBudget(newBudget);
+            Form1.Instance.InputRemainingBudget(newBudget);
 
             // Close the InputBudgetAlert Form
             this.Close();

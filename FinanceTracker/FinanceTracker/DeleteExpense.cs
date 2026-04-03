@@ -28,7 +28,7 @@ namespace FinanceTracker
         private void Button1_Click(object sender, EventArgs e)
         {
             // Pass user input into AddToList method in ExpensesForm
-            ExpensesForm.instance.DeleteFromList(expenseName, expenseCost);
+            ExpensesForm.Instance.DeleteFromList(expenseName);
             this.Close();
         }
     }

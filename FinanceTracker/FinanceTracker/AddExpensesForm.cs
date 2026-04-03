@@ -41,14 +41,33 @@ namespace FinanceTracker
                 do
                 {
                     // The expense name length is too long for the database
-                    label3.Text = "Please set the expense name 64 characters or less";
+                    string errorMsg = "Error: Expense name is too long, please pick an expense name 64 characters or less";
+                    throw_error error = new();
+                    error.Show();
+                    error.SetError(errorMsg);
                 } while (expenseName.Length > 64);
             } 
+            else if (string.IsNullOrEmpty(expenseName))
+            {
+                // You know you need to name the expense, right?
+                string errorMsg = "Error: Please name the expense";
+                throw_error error = new();
+                error.Show();
+                error.SetError(errorMsg);
+            }
+            else if (string.IsNullOrEmpty(expenseCost))
+            {
+                // Oopsie Doopsie, you forgot to set the cost
+                string errorMsg = "Error: Please please set the cost";
+                throw_error error = new();
+                error.Show();
+                error.SetError(errorMsg);
+            }
             else
             {
                 // Pass user input into AddToList method in ExpensesForm
-                ExpensesForm.instance.AddToList(expenseName, expenseCost);
-                ExpensesForm.AddToListView(expenseName, expenseCost);
+                ExpensesForm.Instance.AddToList(expenseName, expenseCost);
+                ExpensesForm.Instance.AddToLabels();
                 this.Close();
             }
         }

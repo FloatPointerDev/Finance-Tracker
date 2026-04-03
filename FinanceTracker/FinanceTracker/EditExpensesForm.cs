@@ -36,7 +36,7 @@ namespace FinanceTracker
         private void Button1_Click(object sender, EventArgs e)
         {
             // Pass user input into AddToList method in ExpensesForm
-            ExpensesForm.instance.ModifyList(expenseName, expenseCost);
+            ExpensesForm.Instance.ModifyList(expenseName, expenseCost);
             this.Close();
         }
     }

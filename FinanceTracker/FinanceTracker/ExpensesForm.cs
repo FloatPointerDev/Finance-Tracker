@@ -14,14 +14,14 @@ namespace FinanceTracker
     public partial class ExpensesForm : Form
     {
         // Initialise object of ExpensesForm and create 2 lists to store user input
-        public static ExpensesForm instance;
+        public static ExpensesForm Instance { get; set; }
         public List<string> expenseNameList = [];
         public List<string> expenseCostList = [];
 
         public ExpensesForm()
         {
             InitializeComponent();
-            instance = this;
+            Instance = this;
         }
 
         private void EditExpense_Click(object sender, EventArgs e)
@@ -57,13 +57,13 @@ namespace FinanceTracker
             expenseCostList.Add(expenseCost);
         }
 
-        public void DeleteFromList(string expenseName, string expenseCost)
+        public void DeleteFromList(string expenseName)
         {
             // Loop for entire list
             for (int i = 0; i < expenseNameList.Count; i++)
             {
                 // If specified element is discovered
-                if (expenseName == expenseNameList[i] && expenseCost == expenseCostList[i])
+                if (expenseName == expenseNameList[i])
                 {
                     // Remove specified element from the list and terminate
                     expenseNameList.RemoveAt(i);
@@ -89,9 +89,17 @@ namespace FinanceTracker
             }
         }
 
-        public static void AddToListView(string expenseNameList, string expenseCostList)
+        public void AddToLabels()
         {
+            for (int i = 0; i < expenseNameList.Count; i++)
+            {
+                label1.Text = label1.Text + "\n" + expenseNameList[i] + "\n";
+            }
 
+            for (int i = 0; i < expenseCostList.Count; i++)
+            {
+                label2.Text = label2.Text + "\n" + expenseCostList[i] + "\n";
+            }
         }
     }
 }

@@ -32,6 +32,8 @@
             DeleteExpenses = new Button();
             SaveExpense = new Button();
             EditExpense = new Button();
+            label1 = new Label();
+            label2 = new Label();
             SuspendLayout();
             // 
             // AddExpense
@@ -74,11 +76,33 @@
             EditExpense.UseVisualStyleBackColor = true;
             EditExpense.Click += EditExpense_Click;
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Location = new Point(12, 139);
+            label1.Name = "label1";
+            label1.Size = new Size(106, 32);
+            label1.TabIndex = 4;
+            label1.Text = "Expense:";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label2.Location = new Point(246, 139);
+            label2.Name = "label2";
+            label2.Size = new Size(66, 32);
+            label2.TabIndex = 5;
+            label2.Text = "Cost:";
+            // 
             // ExpensesForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(487, 495);
+            ClientSize = new Size(482, 495);
+            Controls.Add(label2);
+            Controls.Add(label1);
             Controls.Add(EditExpense);
             Controls.Add(SaveExpense);
             Controls.Add(DeleteExpenses);
@@ -86,6 +110,7 @@
             Name = "ExpensesForm";
             Text = "ExpensesForm";
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -94,5 +119,7 @@
         private Button DeleteExpenses;
         private Button SaveExpense;
         private Button EditExpense;
+        private Label label1;
+        private Label label2;
     }
 }
