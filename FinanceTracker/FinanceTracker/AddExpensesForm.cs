@@ -14,8 +14,8 @@ namespace FinanceTracker
     public partial class AddExpensesForm : Form
     {
         // Declare and initialise variables to be passed into ExpensesForm
-        string expenseName = "";
-        string expenseCost = "";
+        string expenseName = "e1";
+        string expenseCost = "1";
         public AddExpensesForm()
         {
             InitializeComponent();
@@ -35,30 +35,30 @@ namespace FinanceTracker
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            // Check if name length is greater than 64 characters
-            if (expenseName.Length > 64)
+            // Check if:
+            // - Name is too long
+            // - Name is too short
+            // - Cost is empty
+            if (expenseName.Length >= 65)
             {
-                do
-                {
-                    // The expense name length is too long for the database
-                    string errorMsg = "Error: Expense name is too long, please pick an expense name 64 characters or less";
-                    throw_error error = new();
-                    error.Show();
-                    error.SetError(errorMsg);
-                } while (expenseName.Length > 64);
-            } 
-            else if (string.IsNullOrEmpty(expenseName))
+                // Send error message explaining name field is too long
+                string errorMsg = "Error: Expense name is too long, please pick an expense name 64 characters or less";
+               throw_error error = new();
+               error.Show();
+               error.SetError(errorMsg);
+            }
+            else if (expenseName.Length <= 0)
             {
-                // You know you need to name the expense, right?
-                string errorMsg = "Error: Please name the expense";
+                // Send error message explaining name field needs to be filled in
+                string errorMsg = "Error: Expense name is too short, please pick an expense name longer than 0 characters";
                 throw_error error = new();
                 error.Show();
                 error.SetError(errorMsg);
             }
-            else if (string.IsNullOrEmpty(expenseCost))
+            else if (expenseCost.Length <= 0)
             {
-                // Oopsie Doopsie, you forgot to set the cost
-                string errorMsg = "Error: Please please set the cost";
+                // Send error message explaining cost field needs to be filled in
+                string errorMsg = "Error: Expense name is too short, please pick an expense name longer than 0 characters";
                 throw_error error = new();
                 error.Show();
                 error.SetError(errorMsg);

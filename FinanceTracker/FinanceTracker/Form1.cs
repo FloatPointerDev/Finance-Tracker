@@ -1,5 +1,6 @@
 using MySql.Data.MySqlClient;
 using System.Data;
+using System.Text;
 
 namespace FinanceTracker
 {
@@ -28,12 +29,13 @@ namespace FinanceTracker
 
         }
 
+        // Create a new object of ExpensesForm
+        public ExpensesForm f3 = new();
         private void EditExpensesButton_Click(object sender, EventArgs e)
         {
             if (isEnabled == true)
             {
-                // Create a new object of ExpensesForm and display it
-                ExpensesForm f3 = new();
+                // Display new ExpensesForm object
                 f3.Show();
             } else
             {
@@ -60,6 +62,10 @@ namespace FinanceTracker
         public void InputRemainingBudget(int setBudget)
         {
             // Set remaining budget from input from InputBudgetAlertForm
+            for (int i = 0; i < f3.expenseCostList.Count; i++)
+            {
+                setBudget -= Int32.Parse(f3.expenseCostList[i]);
+            }
             DisplayRemainingBudget.Text = "Remaining Budget: " + setBudget.ToString();
         }
 

@@ -91,11 +91,13 @@ namespace FinanceTracker
 
         public void AddToLabels()
         {
+            label1.Text = "Expense: \n";
             for (int i = 0; i < expenseNameList.Count; i++)
             {
                 label1.Text = label1.Text + "\n" + expenseNameList[i] + "\n";
             }
 
+            label2.Text = "Cost: \n";
             for (int i = 0; i < expenseCostList.Count; i++)
             {
                 label2.Text = label2.Text + "\n" + expenseCostList[i] + "\n";

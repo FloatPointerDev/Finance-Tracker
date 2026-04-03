@@ -13,7 +13,6 @@ namespace FinanceTracker
     public partial class DeleteExpense : Form
     {
         public string expenseName = "";
-        public string expenseCost = "";
         public DeleteExpense()
         {
             InitializeComponent();

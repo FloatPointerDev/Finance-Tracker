@@ -34,6 +34,7 @@
             TotalBudget = new Label();
             listBox1 = new ListBox();
             NewBudget = new Button();
+            RemainingBudgetLow = new Label();
             SuspendLayout();
             // 
             // EditExpensesButton
@@ -93,11 +94,20 @@
             NewBudget.UseVisualStyleBackColor = true;
             NewBudget.Click += NewBudget_Click;
             // 
+            // RemainingBudgetLow
+            // 
+            RemainingBudgetLow.AutoSize = true;
+            RemainingBudgetLow.Location = new Point(12, 9);
+            RemainingBudgetLow.Name = "RemainingBudgetLow";
+            RemainingBudgetLow.Size = new Size(0, 15);
+            RemainingBudgetLow.TabIndex = 6;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(RemainingBudgetLow);
             Controls.Add(NewBudget);
             Controls.Add(listBox1);
             Controls.Add(TotalBudget);
@@ -118,5 +128,6 @@
         private Label TotalBudget;
         private ListBox listBox1;
         private Button NewBudget;
+        private Label RemainingBudgetLow;
     }
 }
