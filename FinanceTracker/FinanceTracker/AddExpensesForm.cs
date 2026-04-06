@@ -14,8 +14,8 @@ namespace FinanceTracker
     public partial class AddExpensesForm : Form
     {
         // Declare and initialise variables to be passed into ExpensesForm
-        string expenseName = "e1";
-        string expenseCost = "1";
+        string expenseName = "";
+        string expenseCost = "";
         public AddExpensesForm()
         {
             InitializeComponent();
@@ -23,18 +23,20 @@ namespace FinanceTracker
 
         private void AddExpensesNameTextBox_TextChanged(object sender, EventArgs e)
         {
-            // Get the user input from the TextBox
-            expenseName = AddExpensesNameTextBox.Text;
+
         }
 
         private void AddExpensesCostTextBox_TextChanged(object sender, EventArgs e)
         {
-            // Get the user input from the TextBox
-            expenseCost = AddExpensesCostTextBox.Text;
+
         }
 
         private void Button1_Click(object sender, EventArgs e)
         {
+            // Get the user input from the TextBox
+            expenseName = AddExpensesNameTextBox.Text;
+            expenseCost = AddExpensesCostTextBox.Text;
+
             // Check if:
             // - Name is too long
             // - Name is too short
@@ -58,7 +60,7 @@ namespace FinanceTracker
             else if (expenseCost.Length <= 0)
             {
                 // Send error message explaining cost field needs to be filled in
-                string errorMsg = "Error: Expense name is too short, please pick an expense name longer than 0 characters";
+                string errorMsg = "Error: Please input an expense cost";
                 throw_error error = new();
                 error.Show();
                 error.SetError(errorMsg);

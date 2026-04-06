@@ -35,9 +35,24 @@ namespace FinanceTracker
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            // Pass user input into AddToList method in ExpensesForm
-            ExpensesForm.Instance.ModifyList(expenseName, expenseCost);
-            this.Close();
+            // Get the user input from the TextBox
+            expenseName = ExpensesNameTextBox.Text;
+            expenseCost = SetNewCost.Text;
+
+            if (string.IsNullOrEmpty(expenseCost))
+            {
+                // Declare and initialise error message with error and display to user using template error window
+                string errorMsg = "Error: cost needs to be filled in";
+                throw_error error = new();
+                error.Show();
+                error.SetError(errorMsg);
+            } 
+            else
+            {
+                // Pass user input into AddToList method in ExpensesForm
+                ExpensesForm.Instance.ModifyList(expenseName, expenseCost);
+                this.Close();
+            }
         }
     }
 }

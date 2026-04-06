@@ -17,6 +17,7 @@ namespace FinanceTracker
         public static ExpensesForm Instance { get; set; }
         public List<string> expenseNameList = [];
         public List<string> expenseCostList = [];
+        public bool expenseFound = false;
 
         public ExpensesForm()
         {
@@ -33,6 +34,7 @@ namespace FinanceTracker
 
         private void SaveExpense_Click(object sender, EventArgs e)
         {
+            Form1.Instance.SendToForm1();
             this.Close();
         }
 
@@ -68,9 +70,23 @@ namespace FinanceTracker
                     // Remove specified element from the list and terminate
                     expenseNameList.RemoveAt(i);
                     expenseCostList.RemoveAt(i);
+                    expenseFound = true;
                     break;
                 }
             }
+
+            if (expenseFound == false)
+            {
+                // Declare and initialise error message with error and display to user using template error window
+                string errorMsg = "Error: expense not found";
+                throw_error error = new();
+                error.Show();
+                error.SetError(errorMsg);
+            }
+            // Set new label data
+            AddToLabels();
+            // Reset expenseFound to false
+            expenseFound = false;
         }
 
         public void ModifyList(string expenseName, string expenseCost)
@@ -79,14 +95,27 @@ namespace FinanceTracker
             for (int i = 0; i < expenseNameList.Count; i++)
             {
                 // If specified element is discovered
-                if (expenseName == expenseNameList[i] && expenseCost == expenseCostList[i])
+                if (expenseName == expenseNameList[i])
                 {
-                    // Remove specified element from the list and terminate
-                    expenseNameList.RemoveAt(i);
-                    expenseCostList.RemoveAt(i);
+                    // Change specified element from the list and terminate
+                    expenseCostList[i] = expenseCost;
+                    expenseFound = true;
                     break;
                 }
             }
+
+            if (expenseFound == false)
+            {
+                // Declare and initialise error message with error and display to user using template error window
+                string errorMsg = "Error: expense not found";
+                throw_error error = new();
+                error.Show();
+                error.SetError(errorMsg);
+            }
+            // Set new label data
+            AddToLabels(); 
+            // Reset expenseFound to false
+            expenseFound = false;
         }
 
         public void AddToLabels()

@@ -75,6 +75,12 @@ namespace FinanceTracker
             InputBudgetAlertForm f2 = new();
             f2.Show(this);
         }
+
+        public void SendToForm1()
+        {
+            List<string> expenseNameList = ExpensesForm.Instance.expenseNameList;
+            List<string> expenseCostList = ExpensesForm.Instance.expenseCostList;
+        }
     }
 
     public class SQL
