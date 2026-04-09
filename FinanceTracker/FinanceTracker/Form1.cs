@@ -7,9 +7,9 @@ namespace FinanceTracker
     // Form1 displays all the data the user inputted
     public partial class Form1 : Form
     {
-        public static Form1 Instance { get; set; }
+        public static Form1? Instance { get; set; }
         bool isEnabled = false;
-        public int sessionId = 1;
+        public int setRemainingBudget;
         public Form1()
         {
             // Initialise Form1 and set Form1 object instance to this
@@ -55,18 +55,20 @@ namespace FinanceTracker
         public void InputBudget(int setBudget)
         {
             // Set total budget from input from InputBudgetAlertForm
+            setRemainingBudget = setBudget;
             TotalBudget.Text = "Total Budget: " + setBudget.ToString();
             isEnabled = true;
+            DisplayRemainingBudget.Text = "Remaining Budget: " + setBudget.ToString();
         }
 
-        public void InputRemainingBudget(int setBudget)
+        public void InputRemainingBudget(List<string> expenseCostList)
         {
             // Set remaining budget from input from InputBudgetAlertForm
-            for (int i = 0; i < f3.expenseCostList.Count; i++)
+            for (int i = 0; i < expenseCostList.Count; i++)
             {
-                setBudget -= Int32.Parse(f3.expenseCostList[i]);
+                setRemainingBudget -= int.Parse(expenseCostList[i]);
             }
-            DisplayRemainingBudget.Text = "Remaining Budget: " + setBudget.ToString();
+            DisplayRemainingBudget.Text = "Remaining Budget: " + setRemainingBudget.ToString();
         }
 
         private void NewBudget_Click(object sender, EventArgs e)
@@ -76,11 +78,6 @@ namespace FinanceTracker
             f2.Show(this);
         }
 
-        public void SendToForm1()
-        {
-            List<string> expenseNameList = ExpensesForm.Instance.expenseNameList;
-            List<string> expenseCostList = ExpensesForm.Instance.expenseCostList;
-        }
     }
 
     public class SQL

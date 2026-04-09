@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "AQvktgd2G4Q=",
+  "dgSpecHash": "puhVAczv7+U=",
   "success": true,
-  "projectFilePath": "C:\\Users\\conno\\OneDrive\\Desktop\\FinanceTracker\\FinanceTracker\\FinanceTracker.csproj",
+  "projectFilePath": "C:\\Users\\conno\\OneDrive\\Desktop\\Finance-Tracker-main\\FinanceTracker\\FinanceTracker\\FinanceTracker.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\conno\\.nuget\\packages\\bouncycastle.cryptography\\2.6.2\\bouncycastle.cryptography.2.6.2.nupkg.sha512",
     "C:\\Users\\conno\\.nuget\\packages\\google.protobuf\\3.32.0\\google.protobuf.3.32.0.nupkg.sha512",

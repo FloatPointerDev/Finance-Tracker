@@ -70,7 +70,7 @@ namespace FinanceTracker
                 // Pass user input into AddToList method in ExpensesForm
                 ExpensesForm.Instance.AddToList(expenseName, expenseCost);
                 ExpensesForm.Instance.AddToLabels();
-                this.Close();
+                this.Hide();
             }
         }
     }

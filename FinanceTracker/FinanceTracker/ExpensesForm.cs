@@ -14,7 +14,7 @@ namespace FinanceTracker
     public partial class ExpensesForm : Form
     {
         // Initialise object of ExpensesForm and create 2 lists to store user input
-        public static ExpensesForm Instance { get; set; }
+        public static ExpensesForm? Instance { get; set; }
         public List<string> expenseNameList = [];
         public List<string> expenseCostList = [];
         public bool expenseFound = false;
@@ -34,8 +34,8 @@ namespace FinanceTracker
 
         private void SaveExpense_Click(object sender, EventArgs e)
         {
-            Form1.Instance.SendToForm1();
-            this.Close();
+            Form1.Instance.InputRemainingBudget(expenseCostList);
+            this.Hide();
         }
 
         private void DeleteExpenses_Click(object sender, EventArgs e)

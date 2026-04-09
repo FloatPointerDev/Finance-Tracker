@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\conno\\OneDrive\\Desktop\\FinanceTracker\\FinanceTracker\\FinanceTracker.csproj": {}
+    "C:\\Users\\conno\\OneDrive\\Desktop\\Finance-Tracker-main\\FinanceTracker\\FinanceTracker\\FinanceTracker.csproj": {}
   },
   "projects": {
-    "C:\\Users\\conno\\OneDrive\\Desktop\\FinanceTracker\\FinanceTracker\\FinanceTracker.csproj": {
+    "C:\\Users\\conno\\OneDrive\\Desktop\\Finance-Tracker-main\\FinanceTracker\\FinanceTracker\\FinanceTracker.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\conno\\OneDrive\\Desktop\\FinanceTracker\\FinanceTracker\\FinanceTracker.csproj",
+        "projectUniqueName": "C:\\Users\\conno\\OneDrive\\Desktop\\Finance-Tracker-main\\FinanceTracker\\FinanceTracker\\FinanceTracker.csproj",
         "projectName": "FinanceTracker",
-        "projectPath": "C:\\Users\\conno\\OneDrive\\Desktop\\FinanceTracker\\FinanceTracker\\FinanceTracker.csproj",
+        "projectPath": "C:\\Users\\conno\\OneDrive\\Desktop\\Finance-Tracker-main\\FinanceTracker\\FinanceTracker\\FinanceTracker.csproj",
         "packagesPath": "C:\\Users\\conno\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\conno\\OneDrive\\Desktop\\FinanceTracker\\FinanceTracker\\obj\\",
+        "outputPath": "C:\\Users\\conno\\OneDrive\\Desktop\\Finance-Tracker-main\\FinanceTracker\\FinanceTracker\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\conno\\AppData\\Roaming\\NuGet\\NuGet.Config",

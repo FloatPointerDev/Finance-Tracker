@@ -29,10 +29,9 @@ namespace FinanceTracker
         {
             // Send user input to methods in Form1
             Form1.Instance.InputBudget(newBudget);
-            Form1.Instance.InputRemainingBudget(newBudget);
 
             // Close the InputBudgetAlert Form
-            this.Close();
+            this.Hide();
         }
     }
 }
