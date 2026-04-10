@@ -10,6 +10,7 @@ namespace FinanceTracker
         public static Form1? Instance { get; set; }
         bool isEnabled = false;
         public int setRemainingBudget;
+        public int totalBudget;
         public Form1()
         {
             // Initialise Form1 and set Form1 object instance to this
@@ -55,7 +56,7 @@ namespace FinanceTracker
         public void InputBudget(int setBudget)
         {
             // Set total budget from input from InputBudgetAlertForm
-            setRemainingBudget = setBudget;
+            totalBudget = setBudget;
             TotalBudget.Text = "Total Budget: " + setBudget.ToString();
             isEnabled = true;
             DisplayRemainingBudget.Text = "Remaining Budget: " + setBudget.ToString();
@@ -63,6 +64,7 @@ namespace FinanceTracker
 
         public void InputRemainingBudget(List<string> expenseCostList)
         {
+            setRemainingBudget = totalBudget;
             // Set remaining budget from input from InputBudgetAlertForm
             for (int i = 0; i < expenseCostList.Count; i++)
             {
