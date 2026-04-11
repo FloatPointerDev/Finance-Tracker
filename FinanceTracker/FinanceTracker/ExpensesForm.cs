@@ -21,6 +21,7 @@ namespace FinanceTracker
 
         public ExpensesForm()
         {
+            // Declare and initialise instance of ExpensesForm
             InitializeComponent();
             Instance = this;
         }
@@ -34,6 +35,8 @@ namespace FinanceTracker
 
         private void SaveExpense_Click(object sender, EventArgs e)
         {
+            // Pass to main form, then hide window
+            // Apparently this.Close(); breaks the program? so this.Hide(); is better
             Form1.Instance.InputRemainingBudget(expenseCostList);
             this.Hide();
         }
@@ -121,11 +124,12 @@ namespace FinanceTracker
         public void AddToLabels()
         {
             label1.Text = "Expense: \n";
+
             for (int i = 0; i < expenseNameList.Count; i++)
             {
                 label1.Text = label1.Text + "\n" + expenseNameList[i] + "\n";
             }
-
+            
             label2.Text = "Cost: \n";
             for (int i = 0; i < expenseCostList.Count; i++)
             {

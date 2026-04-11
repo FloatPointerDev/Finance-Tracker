@@ -7,10 +7,11 @@ namespace FinanceTracker
     // Form1 displays all the data the user inputted
     public partial class Form1 : Form
     {
+        // Declare variables
         public static Form1? Instance { get; set; }
         bool isEnabled = false;
-        public int setRemainingBudget;
-        public int totalBudget;
+        public double setRemainingBudget;
+        public double totalBudget;
         public Form1()
         {
             // Initialise Form1 and set Form1 object instance to this
@@ -53,7 +54,7 @@ namespace FinanceTracker
             this.Close();
         }
 
-        public void InputBudget(int setBudget)
+        public void InputBudget(double setBudget)
         {
             // Set total budget from input from InputBudgetAlertForm
             totalBudget = setBudget;
@@ -68,9 +69,30 @@ namespace FinanceTracker
             // Set remaining budget from input from InputBudgetAlertForm
             for (int i = 0; i < expenseCostList.Count; i++)
             {
-                setRemainingBudget -= int.Parse(expenseCostList[i]);
+                setRemainingBudget -= Double.Parse(expenseCostList[i]);
             }
+
+            // Display remaining budget
             DisplayRemainingBudget.Text = "Remaining Budget: " + setRemainingBudget.ToString();
+
+            // Check if within 10% of maximum
+            if (setRemainingBudget <= totalBudget * 0.9)
+            {
+                // Declare and initialise warning to user and display using template message window
+                string errorMsg = "Warning: Your budget is within 10% of the maximum";
+                throw_error error = new();
+                error.Show();
+                error.SetError(errorMsg);
+            }
+
+            if (setRemainingBudget > totalBudget)
+            {
+                // Inform user their budget has went over the maximum
+                string errorMsg = "Warning: Your budget has gone over the maximum";
+                throw_error error = new();
+                error.Show();
+                error.SetError(errorMsg);
+            }
         }
 
         private void NewBudget_Click(object sender, EventArgs e)
@@ -161,6 +183,7 @@ namespace FinanceTracker
 
             try
             {
+                // Open databse connection
                 conn.Open();
 
                 // Create Database

@@ -13,7 +13,7 @@ namespace FinanceTracker
     public partial class InputBudgetAlertForm : Form
     {
         // Declare and initialise newBudget variable
-        int newBudget = 0;
+        double newBudget;
         public InputBudgetAlertForm()
         {
             InitializeComponent();
@@ -21,8 +21,16 @@ namespace FinanceTracker
 
         private void BudgetInputTextBox_TextChanged(object sender, EventArgs e)
         {
-            // Get the user input from the TextBox
-            newBudget = Convert.ToInt32(BudgetInputTextBox.Text);
+            try
+            {
+                // Get the user input from the TextBox
+                newBudget = Convert.ToDouble(BudgetInputTextBox.Text);
+            }
+            catch (Exception)
+            {
+                // This fixes a bug regarding pressing backspace after filling something in
+                // However, I'm not sure what to put here
+            }
         }
 
         private void BudgetInputButton_Click(object sender, EventArgs e)
