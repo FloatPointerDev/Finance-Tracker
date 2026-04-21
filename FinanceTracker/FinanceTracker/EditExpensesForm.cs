@@ -46,7 +46,7 @@ namespace FinanceTracker
                 throw_error error = new();
                 error.Show();
                 error.SetError(errorMsg);
-            } 
+            }
             else
             {
                 // Pass user input into AddToList method in ExpensesForm

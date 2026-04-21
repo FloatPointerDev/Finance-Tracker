@@ -13,7 +13,7 @@ namespace FinanceTracker
     public partial class InputBudgetAlertForm : Form
     {
         // Declare and initialise newBudget variable
-        double newBudget;
+        double newBudget = 0;
         public InputBudgetAlertForm()
         {
             InitializeComponent();
@@ -26,10 +26,10 @@ namespace FinanceTracker
                 // Get the user input from the TextBox
                 newBudget = Convert.ToDouble(BudgetInputTextBox.Text);
             }
-            catch (Exception)
+            catch(Exception)
             {
-                // This fixes a bug regarding pressing backspace after filling something in
-                // However, I'm not sure what to put here
+                // Shockingly, it does nothing
+                // Because otherwise pressing backspace on the textbox causes it to show an error if you do it too many times
             }
         }
 
@@ -39,7 +39,7 @@ namespace FinanceTracker
             Form1.Instance.InputBudget(newBudget);
 
             // Close the InputBudgetAlert Form
-            this.Hide();
+            this.Close();
         }
     }
 }

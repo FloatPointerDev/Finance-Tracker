@@ -26,12 +26,14 @@ namespace FinanceTracker
 
         private void AddExpensesNameTextBox_TextChanged(object sender, EventArgs e)
         {
-
+            // Get the user input from the TextBox
+            expenseName = AddExpensesNameTextBox.Text;
         }
 
         private void AddExpensesCostTextBox_TextChanged(object sender, EventArgs e)
         {
-
+            // Get the user input from the TextBox
+            expenseCost = AddExpensesCostTextBox.Text;
         }
 
         private void Button1_Click(object sender, EventArgs e)
@@ -41,7 +43,7 @@ namespace FinanceTracker
             expenseCost = AddExpensesCostTextBox.Text;
 
             // Check if expenseName is already in the list
-            for (int i = 0;  i < expenseNameList.Count; i++)
+            for (int i = 0; i < expenseNameList.Count; i++)
             {
                 if (expenseName == expenseNameList[i])
                 {
@@ -55,9 +57,9 @@ namespace FinanceTracker
             {
                 // Send error message explaining name field is too long
                 string errorMsg = "Error: Expense name is too long, please pick an expense name 64 characters or less";
-               throw_error error = new();
-               error.Show();
-               error.SetError(errorMsg);
+                throw_error error = new();
+                error.Show();
+                error.SetError(errorMsg);
             }
             else if (expenseName.Length <= 0)
             {
@@ -75,7 +77,7 @@ namespace FinanceTracker
                 error.Show();
                 error.SetError(errorMsg);
             }
-            else if (isDuplicate == true) 
+            else if (isDuplicate == true)
             {
                 // Send error message explaining name must be unique
                 string errorMsg = "Error: Expense name must be unique";

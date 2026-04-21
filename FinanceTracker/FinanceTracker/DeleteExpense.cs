@@ -20,7 +20,8 @@ namespace FinanceTracker
 
         private void DeleteExpenseTextBox_TextChanged(object sender, EventArgs e)
         {
-
+            // Get the user input from the TextBox
+            expenseName = DeleteExpenseTextBox.Text;
         }
 
         private void Button1_Click(object sender, EventArgs e)

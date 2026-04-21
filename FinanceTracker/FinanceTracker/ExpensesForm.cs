@@ -14,14 +14,14 @@ namespace FinanceTracker
     public partial class ExpensesForm : Form
     {
         // Initialise object of ExpensesForm and create 2 lists to store user input
-        public static ExpensesForm? Instance { get; set; }
+        public static ExpensesForm Instance { get; set; }
         public List<string> expenseNameList = [];
         public List<string> expenseCostList = [];
         public bool expenseFound = false;
+        public bool remainingBudgetTooLow = false;
 
         public ExpensesForm()
         {
-            // Declare and initialise instance of ExpensesForm
             InitializeComponent();
             Instance = this;
         }
@@ -50,9 +50,20 @@ namespace FinanceTracker
 
         private void AddExpense_Click(object sender, EventArgs e)
         {
-            // Create new object of AddExpensesForm and display
-            AddExpensesForm f4 = new();
-            f4.Show();
+            if (remainingBudgetTooLow == false)
+            {
+                // Create new object of AddExpensesForm and display
+                AddExpensesForm f4 = new();
+                f4.Show();
+            }
+            else
+            {
+                // Declare and initialise error message with error and display to user using template error window
+                string errorMsg = "Error: remaining budget is too low, please remove or change some expenses before adding more";
+                throw_error error = new();
+                error.Show();
+                error.SetError(errorMsg);
+            }
         }
 
         public void AddToList(string expenseName, string expenseCost)
@@ -86,6 +97,7 @@ namespace FinanceTracker
                 error.Show();
                 error.SetError(errorMsg);
             }
+
             // Set new label data
             AddToLabels();
             // Reset expenseFound to false
@@ -115,8 +127,9 @@ namespace FinanceTracker
                 error.Show();
                 error.SetError(errorMsg);
             }
+
             // Set new label data
-            AddToLabels(); 
+            AddToLabels();
             // Reset expenseFound to false
             expenseFound = false;
         }
@@ -124,17 +137,21 @@ namespace FinanceTracker
         public void AddToLabels()
         {
             label1.Text = "Expense: \n";
-
             for (int i = 0; i < expenseNameList.Count; i++)
             {
                 label1.Text = label1.Text + "\n" + expenseNameList[i] + "\n";
             }
-            
+
             label2.Text = "Cost: \n";
             for (int i = 0; i < expenseCostList.Count; i++)
             {
                 label2.Text = label2.Text + "\n" + expenseCostList[i] + "\n";
             }
+        }
+
+        public void RemainingBudgetTooLowMethod(bool tooLow)
+        {
+            remainingBudgetTooLow = tooLow;
         }
     }
 }
