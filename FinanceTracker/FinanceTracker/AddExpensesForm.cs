@@ -19,6 +19,7 @@ namespace FinanceTracker
         bool isDuplicate = false;
         public List<string> expenseNameList = ExpensesForm.Instance.expenseNameList;
         public List<string> expenseCostList = ExpensesForm.Instance.expenseCostList;
+        public List<string> expenseIdList = ExpensesForm.Instance.expenseIdList;
         public AddExpensesForm()
         {
             InitializeComponent();
@@ -50,6 +51,13 @@ namespace FinanceTracker
                     isDuplicate = true;
                     break;
                 }
+            }
+
+            expenseIdList.Clear();
+
+            for (int i = 0; i < expenseIdList.Count; i++)
+            {
+                expenseIdList[i] = $"{i}";
             }
 
             // Check if: Name is too long, name is too short, cost is empty, name is a duplicate

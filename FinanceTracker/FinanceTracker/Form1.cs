@@ -7,12 +7,13 @@ namespace FinanceTracker
     // Form1 displays all the data the user inputted
     public partial class Form1 : Form
     {
-        public static Form1 Instance { get; set; }
+        public static Form1? Instance { get; set; }
         bool isEnabled = false;
         public double setRemainingBudget;
         public double totalBudget;
         public bool remainingBudgetTooLow = false;
         public int sessionId = 1;
+
         public Form1()
         {
             // Initialise Form1 and set Form1 object instance to this
@@ -32,7 +33,7 @@ namespace FinanceTracker
 
         }
 
-        // Create a new object of ExpensesForm
+        // Create new ExpensesForm object
         public ExpensesForm f3 = new();
         private void EditExpensesButton_Click(object sender, EventArgs e)
         {
@@ -52,7 +53,20 @@ namespace FinanceTracker
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
-            this.Close();
+            DateTime today = DateTime.Now; // Fetch today's date
+            string insertSession = $"INSERT INTO session (sessionId, budget, sessionDate) VALUES ({sessionId}, {totalBudget}, {today:yyyy-MM-dd});";
+
+            // Send to SQL database with script
+            SQL.SaveExpenses("FinanceTracker", insertSession);
+
+            for (int i = 0; i < ExpensesForm.Instance.expenseNameList.Count; i++)
+            {
+                // Create expenses insert query
+                string insertExpenses = $"INSERT INTO expenses (expenseName, ExpenseCost, sessionId) VALUES ({ExpensesForm.Instance.expenseNameList[i]}, {ExpensesForm.Instance.expenseCostList[i]}, {sessionId});";
+                SQL.SaveExpenses("FinanceTracker", insertExpenses); // Send to table FinanceTracker
+            }
+
+            this.Close(); // End program
         }
 
         public void InputBudget(double setBudget)
@@ -67,7 +81,7 @@ namespace FinanceTracker
         public void InputRemainingBudget(List<string> expenseCostList)
         {
             setRemainingBudget = totalBudget;
-            // Set remaining budget from input from InputBudgetAlertForm
+            // Set remaining budget from InputBudgetAlertForm
             for (int i = 0; i < expenseCostList.Count; i++)
             {
                 setRemainingBudget -= Double.Parse(expenseCostList[i]);
@@ -102,7 +116,7 @@ namespace FinanceTracker
 
         private void NewBudget_Click(object sender, EventArgs e)
         {
-            // Create an object of InputBudgetAlertForm
+            // Create new InputBudgetAlertForm object
             InputBudgetAlertForm f2 = new();
             f2.Show(this);
         }

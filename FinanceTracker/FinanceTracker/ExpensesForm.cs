@@ -17,6 +17,7 @@ namespace FinanceTracker
         public static ExpensesForm Instance { get; set; }
         public List<string> expenseNameList = [];
         public List<string> expenseCostList = [];
+        public List<string> expenseIdList = [];
         public bool expenseFound = false;
         public bool remainingBudgetTooLow = false;
 
@@ -28,7 +29,7 @@ namespace FinanceTracker
 
         private void EditExpense_Click(object sender, EventArgs e)
         {
-            // Create new object of EditExpensesForm and display
+            // Create EditExpensesForm object and display
             EditExpensesForm f5 = new();
             f5.Show();
         }
