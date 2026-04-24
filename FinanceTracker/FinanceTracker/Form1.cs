@@ -1,4 +1,5 @@
 using MySql.Data.MySqlClient;
+using MySqlX.XDevAPI.Common;
 using System.Data;
 using System.Text;
 
@@ -24,13 +25,20 @@ namespace FinanceTracker
             string createSession = $"CREATE TABLE session (\r\nsessionId INT PRIMARY KEY,\r\nbudget INT NOT NULL,\r\nsessionDate DATE\r\n);";
             string createExpenses = $"CREATE TABLE expenses (\r\nexpensesId INT PRIMARY KEY AUTO_INCREMENT,\r\nexpenseName varchar(64),\r\nexpenseCost INT NOT NULL,\r\nsessionId INT,\r\nCONSTRAINT fk_session\r\nFOREIGN KEY (sessionId) REFERENCES session (sessionId));";
             string DBname = "FinanceTracker";
+            string getTotalSessionsQuery = "SELECT COUNT(sessionId) FROM session;";
+            DataTable totalSessions = new();
 
             // Input SQL queries into XAMPP database
             SQL.CreateDatabase(DBname);
             SQL.CreateTable(DBname, createSession);
             SQL.CreateTable(DBname, createExpenses);
+            totalSessions = SQL.RunSelect(DBname, getTotalSessionsQuery);
 
-
+            if (totalSessions != null)
+            {
+                SessionGet sessionMenu = new();
+                sessionId = 0;
+            }
         }
 
         public void SetSessionId(int getId)
@@ -46,7 +54,8 @@ namespace FinanceTracker
             {
                 // Display new ExpensesForm object
                 f3.Show();
-            } else
+            } 
+            else
             {
                 // Declare and initialise error message with error and display to user using template error window
                 string errorMsg = "Error: Please set a budget first";
@@ -227,10 +236,38 @@ namespace FinanceTracker
             }
         }
 
-        public static void ReadExpenses(string databaseName, string Query)
+        public static DataTable RunSelect(string databaseName, string query)
         {
+            string connStr = $"Server={server};Port={port};Database={databaseName};" + $"Uid={userID};Pwd={password};";
+            MySqlConnection conn = new(connStr);
+            DataTable? dt = new();
+            try
+            {
+                conn.Open();
+                MySqlCommand cmd = new(query, conn);
+                MySqlDataAdapter adapter = new(cmd);
+                adapter.Fill(dt);
 
+                if (dt.Rows.Count <= 0)
+                {
+                    return dt = null;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("RunSelect error: " + ex.Message);
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+            }
+            return dt;
         }
+
 
     }
 }
