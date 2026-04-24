@@ -12,7 +12,7 @@ namespace FinanceTracker
         public double setRemainingBudget;
         public double totalBudget;
         public bool remainingBudgetTooLow = false;
-        public int sessionId = 1;
+        public int sessionId;
 
         public Form1()
         {
@@ -31,6 +31,11 @@ namespace FinanceTracker
             SQL.CreateTable(DBname, createExpenses);
 
 
+        }
+
+        public void SetSessionId(int getId)
+        {
+            sessionId = getId;
         }
 
         // Create new ExpensesForm object
@@ -54,7 +59,7 @@ namespace FinanceTracker
         private void SaveButton_Click(object sender, EventArgs e)
         {
             DateTime today = DateTime.Now; // Fetch today's date
-            string insertSession = $"INSERT INTO session (sessionId, budget, sessionDate) VALUES ({sessionId}, {totalBudget}, {today:yyyy-MM-dd});";
+            string insertSession = $"INSERT INTO session (sessionId, budget, sessionDate) VALUES ({sessionId}, {totalBudget}, '{today:yyyy-MM-dd}');";
 
             // Send to SQL database with script
             SQL.SaveExpenses("FinanceTracker", insertSession);
@@ -62,7 +67,7 @@ namespace FinanceTracker
             for (int i = 0; i < ExpensesForm.Instance.expenseNameList.Count; i++)
             {
                 // Create expenses insert query
-                string insertExpenses = $"INSERT INTO expenses (expenseName, ExpenseCost, sessionId) VALUES ({ExpensesForm.Instance.expenseNameList[i]}, {ExpensesForm.Instance.expenseCostList[i]}, {sessionId});";
+                string insertExpenses = $"INSERT INTO expenses (expenseName, ExpenseCost, sessionId) VALUES ('{ExpensesForm.Instance.expenseNameList[i]}', {ExpensesForm.Instance.expenseCostList[i]}, {sessionId});";
                 SQL.SaveExpenses("FinanceTracker", insertExpenses); // Send to table FinanceTracker
             }
 
@@ -220,6 +225,11 @@ namespace FinanceTracker
                     conn.Close();
                 }
             }
+        }
+
+        public static void ReadExpenses(string databaseName, string Query)
+        {
+
         }
 
     }

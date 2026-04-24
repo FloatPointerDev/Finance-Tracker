@@ -19,6 +19,9 @@
     <Compile Update="InputBudgetAlertForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="SessionGet.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="throw-error.cs">
       <SubType>Form</SubType>
     </Compile>
