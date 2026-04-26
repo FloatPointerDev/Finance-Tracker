@@ -35,11 +35,10 @@ namespace FinanceTracker
             SQL.CreateTable(DBname, createExpenses);
             totalSessions = SQL.RunSelect(DBname, getTotalSessionsQuery);
 
-            if (totalSessions != null)
+            if (totalSessions != null && Convert.ToInt32(totalSessions.Rows[0][0]) > 0)
             {
                 SessionGet sessionMenu = new();
                 sessionMenu.Show();
-                sessionId = 0;
             }
         }
 
@@ -318,6 +317,9 @@ namespace FinanceTracker
 
         public static int FindMax(int id)
         {
+            // In hindsight, it would have been easier to set up the queries IN the methods like this:
+            // Bit late for that now though unfortunately
+
             // Set up query and datatable
             string findMaxQuery = $"SELECT MAX(sessionId) FROM session;";
             DataTable findMaxTable = SQL.RunSelect("FinanceTracker", findMaxQuery);
