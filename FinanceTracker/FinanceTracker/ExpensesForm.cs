@@ -14,7 +14,7 @@ namespace FinanceTracker
     public partial class ExpensesForm : Form
     {
         // Initialise object of ExpensesForm and create 2 lists to store user input
-        public static ExpensesForm Instance { get; set; }
+        public static ExpensesForm? Instance { get; set; }
         public List<string> expenseNameList = [];
         public List<string> expenseCostList = [];
         public List<string> expenseIdList = [];

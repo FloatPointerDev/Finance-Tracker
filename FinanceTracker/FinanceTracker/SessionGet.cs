@@ -25,17 +25,20 @@ namespace FinanceTracker
             sessionDataTable = SQL.RunSelect("FinanceTracker", getSessions);
             totalSessions = SQL.RunSelect("FinanceTracker", getTotalSessionsQuery);
 
+            // If data found, display previous sessions counted
             if (totalSessions != null && totalSessions.Rows.Count > 0)
             {
                 var count = totalSessions.Rows[0][0];
                 label1.Text = $"You have {count} previous sessions";
             }
 
+            // If not null, clear and display
             if (sessionDataTable != null)
             {
                 listBox1.Items.Clear();
                 foreach (DataRow row in sessionDataTable.Rows)
                 {
+                    // Display session information
                     string display = $"ID: {row["sessionId"]} / Date: {row["sessionDate"]}";
                     listBox1.Items.Add(display);
                 }

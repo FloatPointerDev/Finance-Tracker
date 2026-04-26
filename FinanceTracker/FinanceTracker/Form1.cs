@@ -45,17 +45,16 @@ namespace FinanceTracker
 
         public void SetSessionId(int getId)
         {
+            // Set id
             sessionId = getId;
 
+            // set queries and send to database
             string budgetQuery = $"SELECT budget FROM session WHERE sessionid = {sessionId};";
             string expenseQuery = $"SELECT expenseName, expenseCost FROM expenses WHERE sessionId = {sessionId};";
             SQL.LoadSessionData("FinanceTracker", budgetQuery, expenseQuery);
-            SQL.FindMax(sessionId);
 
-            string errorMsg = $"{sessionId}";
-            throw_error error = new();
-            error.Show();
-            error.SetError(errorMsg);
+            // Find highest session id and go one
+            sessionId = SQL.FindMax(sessionId);
         }
 
         // Create new ExpensesForm object
@@ -165,11 +164,6 @@ namespace FinanceTracker
             {
                 conn.Open();
 
-                // Drop database if exists
-                // string dropCommand = $"CREATE DATABASE IF NOT EXISTS `{databaseName}`;";
-                // MySqlCommand drop = new(dropCommand, conn);
-                // drop.ExecuteNonQuery();
-
                 // Create Database
                 string createCommand = $"CREATE DATABASE IF NOT EXISTS `{databaseName}`";
                 MySqlCommand create = new(createCommand, conn);
@@ -250,9 +244,11 @@ namespace FinanceTracker
 
         public static DataTable RunSelect(string databaseName, string query)
         {
+            // Connect to database and establish database connection object and datatable
             string connStr = $"Server={server};Port={port};Database={databaseName};" + $"Uid={userID};Pwd={password};";
             MySqlConnection conn = new(connStr);
             DataTable? dt = new();
+
             try
             {
                 conn.Open();
@@ -260,6 +256,7 @@ namespace FinanceTracker
                 MySqlDataAdapter adapter = new(cmd);
                 adapter.Fill(dt);
 
+                // If empty, null
                 if (dt.Rows.Count <= 0)
                 {
                     return dt = null;
@@ -282,46 +279,57 @@ namespace FinanceTracker
 
         public static void LoadSessionData(string databaseName, string query, string expensesQuery)
         {
+            // Set up sessions datatable
             DataTable sessionDT = SQL.RunSelect(databaseName, query);
 
+            // If not null, insert budget
             if (sessionDT != null && sessionDT.Rows.Count > 0)
             {
                 double loadedBudget = Convert.ToDouble(sessionDT.Rows[0]["budget"]);
                 Form1.Instance.InputBudget(loadedBudget);
             }
 
+            // Set up expense datatable
             DataTable expensesDT = SQL.RunSelect(databaseName, expensesQuery);
 
+            // If not null, clear list
             if (expensesDT != null)
             {
                 ExpensesForm.Instance.expenseNameList.Clear();
                 ExpensesForm.Instance.expenseCostList.Clear();
 
+                // Loop through rows
                 foreach (DataRow row in expensesDT.Rows)
                 {
-                    string name = row["expenseName"].ToString();
-                    string cost = row["expenseCost"].ToString();
+                    string? name = row["expenseName"].ToString();
+                    string? cost = row["expenseCost"].ToString();
 
+                    // Insert to lists
                     ExpensesForm.Instance.AddToList(name, cost);
                 }
 
+                // Add to labels
                 ExpensesForm.Instance.AddToLabels();
 
+                // Find remaining budget from total and expenses removed
                 Form1.Instance.InputRemainingBudget(ExpensesForm.Instance.expenseCostList);
             }
         }
 
-        public static void FindMax(int id)
+        public static int FindMax(int id)
         {
-            // In hindsight, a lot easier to just have the queries in the methods, like this
-            // But its a bit late to change that...
+            // Set up query and datatable
             string findMaxQuery = $"SELECT MAX(sessionId) FROM session;";
             DataTable findMaxTable = SQL.RunSelect("FinanceTracker", findMaxQuery);
 
-            if (findMaxTable != null && findMaxTable.Rows.Count > 0)
+            // If found, set id
+            if (findMaxTable != null && findMaxTable.Rows.Count > 0 && findMaxTable.Rows[0][0] != DBNull.Value)
             {
-                id = Convert.ToInt32(findMaxTable.Rows[0]) + 1;
+                return id = Convert.ToInt32(findMaxTable.Rows[0][0]) + 1;
             }
+
+            // If not, return 1
+            return 1;
         }
     }
 }
