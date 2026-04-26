@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MySqlX.XDevAPI.Relational;
 
 namespace FinanceTracker
 {
@@ -23,13 +24,20 @@ namespace FinanceTracker
             InitializeComponent();
             sessionDataTable = SQL.RunSelect("FinanceTracker", getSessions);
             totalSessions = SQL.RunSelect("FinanceTracker", getTotalSessionsQuery);
-            label1.Text = $"You have {totalSessions} previous sessions";
+
+            if (totalSessions != null && totalSessions.Rows.Count > 0)
+            {
+                var count = totalSessions.Rows[0][0];
+                label1.Text = $"You have {count} previous sessions";
+            }
 
             if (sessionDataTable != null)
             {
-                for (int i = 0; i < sessionDataTable.Rows.Count; i++)
+                listBox1.Items.Clear();
+                foreach (DataRow row in sessionDataTable.Rows)
                 {
-                    listBox1.Text = sessionDataTable.ToString();
+                    string display = $"ID: {row["sessionId"]} / Date: {row["sessionDate"]}";
+                    listBox1.Items.Add(display);
                 }
             }
         }
